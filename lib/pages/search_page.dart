@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:iteso_library_project/items/book_item.dart';
+import 'package:iteso_library_project/Widgets/drawer.dart';
+import 'package:iteso_library_project/items/material_item.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({
@@ -16,24 +17,33 @@ class _searchPageState extends State<SearchPage> {
     {
       "title": "La canción de Aquiles",
       "imageLink": "https://m.media-amazon.com/images/I/51TixRVm3mS.jpg",
+      "available": "2",
+      "description" : "Aquiles cantando sobre su talón"
     },
     {
       "title": "La teoría del todo: El origen y el destino del universo",
       "imageLink": "https://m.media-amazon.com/images/I/61YFN5RUm3L._SX323_BO1,204,203,200_.jpg",
+      "available": "3",
+      "description" : "Una teoria de como nacio todo todito"
     },
     {
       "title": "Bajo la misma estrella",
       "imageLink": "https://m.media-amazon.com/images/I/41f2y3meruL._SX316_BO1,204,203,200_.jpg",
+      "available": "4",
+      "description" : "Una muchacha se enamora de un muchacho"
     },
     {
       "title": "La ladrona de libros",
       "imageLink": "https://m.media-amazon.com/images/I/51w7Dd4gbmL._SX327_BO1,204,203,200_.jpg",
+      "available": "5",
+      "description" : "Una muchacha que roba libros"
     },
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: DrawerNav(),
         body: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
       child: ListView(
@@ -77,7 +87,7 @@ class _searchPageState extends State<SearchPage> {
                     scrollDirection: Axis.horizontal,
                     itemCount: _listElements.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return BookItem(book: _listElements[index]);
+                      return MaterialItem(material: _listElements[index]);
                     },),
                 ),
                 SizedBox(height: 10,),
@@ -89,7 +99,7 @@ class _searchPageState extends State<SearchPage> {
                     scrollDirection: Axis.horizontal,
                     itemCount: _listElements.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return BookItem(book: _listElements[index]);
+                      return MaterialItem(material: _listElements[index]);
                     },),
                 ),
                 SizedBox(height: 30,),
@@ -103,7 +113,7 @@ class _searchPageState extends State<SearchPage> {
                     scrollDirection: Axis.horizontal,
                     itemCount: _listElements.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return BookItem(book: _listElements[index]);
+                      return MaterialItem(material: _listElements[index]);
                     },),
                 ),
                 SizedBox(height: 10,),
@@ -115,7 +125,7 @@ class _searchPageState extends State<SearchPage> {
                     scrollDirection: Axis.horizontal,
                     itemCount: _listElements.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return BookItem(book: _listElements[index]);
+                      return MaterialItem(material: _listElements[index]);
                     },),
                 )
               ],
