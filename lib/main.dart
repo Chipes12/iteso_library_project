@@ -10,8 +10,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'ITESO Library',
+      theme: ThemeData(primarySwatch: Colors.indigo),
       home: logIn(),
     );
   }
 }
-

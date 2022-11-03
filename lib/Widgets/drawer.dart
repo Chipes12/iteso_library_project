@@ -13,19 +13,22 @@ class DrawerNav extends StatelessWidget {
       child: ListView(
         children: [
           DrawerHeader(
-            child: Center(child: Text("Biblioteca ITESO", style: TextStyle(color: Colors.white, fontSize: 15),),),
-            decoration: BoxDecoration(
-              color: Colors.indigo,
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: AssetImage("/images/Library.jpg")
-              )
+            child: Center(
+              child: Text(
+                "Biblioteca ITESO",
+                style: TextStyle(color: Colors.white, fontSize: 15),
+              ),
             ),
+            decoration: BoxDecoration(
+                color: Colors.indigo,
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage("assets/images/Library.jpg"))),
           ),
           GestureDetector(
             onTap: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: ((context) => SearchPage())));
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: ((context) => SearchPage())));
             },
             child: ListTile(
               leading: Icon(Icons.home),
