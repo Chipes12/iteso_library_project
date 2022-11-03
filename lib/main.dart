@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iteso_library_project/pages/logIn.dart';
+import 'package:iteso_library_project/pages/logIn/logIn.dart';
 
 void main() => runApp(const MyApp());
 
