@@ -14,3 +14,6 @@ class DataSearchingState extends DataFireBState {}
 class DataFoundState extends DataFireBState {}
 
 class DataNotFoundState extends DataFireBState {}
+
+class ErrorState extends DataFireBState {}
+

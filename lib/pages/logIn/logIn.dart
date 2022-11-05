@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iteso_library_project/pages/search_page.dart';
+import 'package:iteso_library_project/pages/Search/search_page.dart';
 
 class logIn extends StatefulWidget {
   const logIn({

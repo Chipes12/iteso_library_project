@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iteso_library_project/pages/check_material.dart';
+import 'package:iteso_library_project/pages/Material/check_material.dart';
 
 class MaterialItem extends StatelessWidget {
   final dynamic material;
