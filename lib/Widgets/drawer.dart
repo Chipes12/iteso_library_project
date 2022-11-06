@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iteso_library_project/pages/calendario.dart';
+import 'package:iteso_library_project/pages/Calendar/calendario.dart';
 import 'package:iteso_library_project/pages/favoritos.dart';
 import 'package:iteso_library_project/pages/historial.dart';
 import 'package:iteso_library_project/pages/Search/search_page.dart';

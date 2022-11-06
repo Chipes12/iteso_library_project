@@ -14,6 +14,8 @@ class _logInState extends State<logIn> {
   var userController = TextEditingController();
   var passwordController = TextEditingController();
   bool show = false;
+  bool _validEmail = false;
+  bool _validPassword = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,10 +57,14 @@ class _logInState extends State<logIn> {
             TextField(
               controller: userController,
               decoration: InputDecoration(
+                errorText: _validEmail ? "Rellenar el campo" : null,
+                errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.red)),
+                errorStyle: TextStyle(color: Colors.red),
                 border: OutlineInputBorder(),
                 label: Text(
                   "Email",
-                  style: TextStyle(color: Colors.blue),
+                  style: TextStyle(color: _validEmail ? Colors.red : Colors.blue),
                 ),
               ),
             ),
@@ -69,10 +75,14 @@ class _logInState extends State<logIn> {
               obscureText: !show,
               controller: passwordController,
               decoration: InputDecoration(
+                errorText: _validPassword ? "Rellenar el campo" : null,
+                errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.red)),
+                errorStyle: TextStyle(color: Colors.red),
                 border: OutlineInputBorder(),
                 label: Text(
                   "Contraseña",
-                  style: TextStyle(color: Colors.blue),
+                  style: TextStyle(color: _validPassword ? Colors.red : Colors.blue),
                 ),
                 suffixIcon: IconButton(
                   icon: Icon(show ? Icons.visibility_off : Icons.visibility),
@@ -93,10 +103,19 @@ class _logInState extends State<logIn> {
                 child: MaterialButton(
                   color: Colors.indigo,
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SearchPage()),
-                    );
+                    userController.text.isEmpty
+                        ? _validEmail = true
+                        : _validEmail = false;
+                    passwordController.text.isEmpty
+                        ? _validPassword = true
+                        : _validPassword = false;
+                        setState(() {});
+                    if (!_validEmail && !_validPassword) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SearchPage()),
+                      );
+                    }
                   },
                   child: Text(
                     "Ingresar",
