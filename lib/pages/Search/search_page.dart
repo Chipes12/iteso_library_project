@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iteso_library_project/Widgets/drawer.dart';
 import 'package:iteso_library_project/items/material_item.dart';
+import 'package:iteso_library_project/pages/Search/qr_scanner.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({
@@ -67,7 +68,11 @@ class _searchPageState extends State<SearchPage> {
           actions: [
             IconButton(
                 onPressed: () {
-                  //TODO: Abrir camara para escanear código QR
+                  //Abrir camara para escanear código QR
+                  /*BlocProvider.of<CameraBlocBloc>(context)
+                      .add(OpenCameraEvent());*/
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: ((context) => QRScanner())));
                 },
                 icon: Icon(Icons.camera_alt))
           ],

@@ -9,6 +9,12 @@ abstract class CameraBlocState extends Equatable {
 
 class CameraBlocInitial extends CameraBlocState {}
 
-class CameraErrorState extends CameraBlocState {}
+class CameraErrorState extends CameraBlocState {
+  final String errorMsg;
+
+  CameraErrorState({required this.errorMsg});
+
+  List<Object> get props => [errorMsg];
+}
 
 class CameraSuccessState extends CameraBlocState {}
