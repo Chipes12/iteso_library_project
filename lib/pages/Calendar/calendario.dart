@@ -113,7 +113,7 @@ class _CalendarioState extends State<Calendario> {
                     ),
                     Expanded(child: SizedBox(width: 4)),
                     Text(
-                      "Material Prestado",
+                      "Material por regresar",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                     ),
