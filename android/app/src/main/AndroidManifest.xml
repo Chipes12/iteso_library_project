@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.iteso_library_project">
    <application
-        android:label="iteso_library_project"
+        android:label="Biblioteca ITESO"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
