@@ -17,7 +17,7 @@ class _searchPageState extends State<SearchPage> {
   final List<Map<String, dynamic>> _listElements = [
     {
       "title": "La canción de Aquiles",
-      "imageLink": "https://m.media-amazon.com/images/I/51TixRVm3mS.jpg",
+      "image_url": "https://m.media-amazon.com/images/I/51TixRVm3mS.jpg",
       "available": "2",
       "description": "Aquiles cantando sobre su talón",
       "author": "Ernest Hemmingway",
@@ -26,7 +26,7 @@ class _searchPageState extends State<SearchPage> {
     },
     {
       "title": "La teoría del todo: El origen y el destino del universo",
-      "imageLink":
+      "image_url":
           "https://m.media-amazon.com/images/I/61YFN5RUm3L._SX323_BO1,204,203,200_.jpg",
       "available": "3",
       "description": "Una teoria de como nacio todo todito",
@@ -36,7 +36,7 @@ class _searchPageState extends State<SearchPage> {
     },
     {
       "title": "Bajo la misma estrella",
-      "imageLink":
+      "image_url":
           "https://m.media-amazon.com/images/I/41f2y3meruL._SX316_BO1,204,203,200_.jpg",
       "available": "4",
       "description": "Una muchacha se enamora de un muchacho",
@@ -46,7 +46,7 @@ class _searchPageState extends State<SearchPage> {
     },
     {
       "title": "La ladrona de libros",
-      "imageLink":
+      "image_url":
           "https://m.media-amazon.com/images/I/51w7Dd4gbmL._SX327_BO1,204,203,200_.jpg",
       "available": "5",
       "description": "Una muchacha que roba libros",

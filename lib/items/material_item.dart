@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iteso_library_project/pages/Material/check_material.dart';
+import 'package:iteso_library_project/pages/Material/check_book.dart';
 
 class MaterialItem extends StatelessWidget {
   final dynamic material;
@@ -21,7 +21,7 @@ class MaterialItem extends StatelessWidget {
             );
           },
           child: Image.network(
-            material["imageLink"],
+            material["image_url"],
             width: 120,
             height: 130,
           ),
