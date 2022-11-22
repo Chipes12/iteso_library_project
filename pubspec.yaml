@@ -11,13 +11,20 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  #views
   intl: ^0.17.0
   cupertino_icons: ^1.0.2
   table_calendar: ^3.0.7
   #Bloc
   flutter_bloc: ^8.1.1
   equatable: ^2.0.5
-
+  #Firebase
+  firebase_core: ^2.2.0
+  firebase_auth: ^4.1.2
+  firebase_storage: ^11.0.5
+  flutterfire_ui:
+  google_sign_in:
+  cloud_firestore:
   #QR dependencie
   qr_code_scanner: ^1.0.1
 
