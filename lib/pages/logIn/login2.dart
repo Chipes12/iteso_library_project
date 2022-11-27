@@ -19,11 +19,11 @@ class Login2 extends StatelessWidget {
             ],
             headerBuilder: (context, constraints, shrinkOffset) {
               return Padding(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20.0),
                 child: AspectRatio(
-                  aspectRatio: 1,
-                  child: Image.asset('./assets/images/Iteso_logo.jpg'),
-                ),
+                aspectRatio: 1,
+                child: Image.asset('./assets/images/Logo_Iteso.png'),
+                  ),
               );
             },
           );
