@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:iteso_library_project/pages/Calendar/calendario.dart';
@@ -11,7 +12,7 @@ class DrawerNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
+      child: Column(
         children: [
           DrawerHeader(
             child: Center(
@@ -70,8 +71,19 @@ class DrawerNav extends StatelessWidget {
               trailing: Icon(Icons.arrow_forward),
             ),
           ),
-          SignOutButton(),
+          Expanded(child: Text("")),
+          GestureDetector(
+            onTap: () async {
+              await FirebaseAuth.instance.signOut();
+            },
+            child: ListTile(
+              leading: Icon(Icons.exit_to_app, color: Colors.indigoAccent),
+              title: Text("Cerrar sesión"),
+              trailing: Icon(Icons.arrow_back),
+            ),
+          ),
         ],
+        
       ),
     );
   }
