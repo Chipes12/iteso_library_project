@@ -1,15 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'messages.dart';
 
-class MaterialDetail extends StatefulWidget {
-  final dynamic material;
-  const MaterialDetail({Key? key, required this.material}) : super(key: key);
+class MaterialDetailBook extends StatefulWidget {
+  final QueryDocumentSnapshot material;
+  const MaterialDetailBook({Key? key, required this.material})
+      : super(key: key);
 
   @override
-  State<MaterialDetail> createState() => _MaterialDetailState(material);
+  State<MaterialDetailBook> createState() => _MaterialDetailState(material);
 }
 
-class _MaterialDetailState extends State<MaterialDetail> {
+class _MaterialDetailState extends State<MaterialDetailBook> {
   final dynamic material;
 
   _MaterialDetailState(this.material);

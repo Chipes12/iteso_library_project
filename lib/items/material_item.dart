@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iteso_library_project/pages/Material/check_book.dart';
+import 'package:iteso_library_project/pages/Material/check_movie.dart';
 
 class MaterialItem extends StatelessWidget {
-  final dynamic material;
-  const MaterialItem({super.key, required this.material});
+  final QueryDocumentSnapshot collection;
+  const MaterialItem({super.key, required this.collection});
 
   @override
   Widget build(BuildContext context) {
@@ -12,16 +14,26 @@ class MaterialItem extends StatelessWidget {
       children: [
         MaterialButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => MaterialDetail(
-                        material: material,
-                      )),
-            );
+            if (collection["pages"] != null) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MaterialDetailBook(
+                          material: collection,
+                        )),
+              );
+            } else {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MaterialDetailMovie(
+                          material: collection,
+                        )),
+              );
+            }
           },
           child: Image.network(
-            material["image_url"],
+            collection["image_url"],
             width: 120,
             height: 130,
           ),
@@ -30,7 +42,7 @@ class MaterialItem extends StatelessWidget {
           width: 120,
           height: 20,
           child: Text(
-            "${material["title"]}",
+            "${collection["title"]}",
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
             maxLines: 1,

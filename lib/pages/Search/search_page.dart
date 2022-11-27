@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iteso_library_project/Widgets/drawer.dart';
 import 'package:iteso_library_project/items/material_item.dart';
@@ -14,47 +15,11 @@ class SearchPage extends StatefulWidget {
 
 class _searchPageState extends State<SearchPage> {
   var bookController = TextEditingController();
-  final List<Map<String, dynamic>> _listElements = [
-    {
-      "title": "La canción de Aquiles",
-      "image_url": "https://m.media-amazon.com/images/I/51TixRVm3mS.jpg",
-      "available": "2",
-      "description": "Aquiles cantando sobre su talón",
-      "author": "Ernest Hemmingway",
-      "pages": 172,
-      "year": 1954,
-    },
-    {
-      "title": "La teoría del todo: El origen y el destino del universo",
-      "image_url":
-          "https://m.media-amazon.com/images/I/61YFN5RUm3L._SX323_BO1,204,203,200_.jpg",
-      "available": "3",
-      "description": "Una teoria de como nacio todo todito",
-      "author": "Ernest Hemmingway",
-      "pages": 172,
-      "year": 1954,
-    },
-    {
-      "title": "Bajo la misma estrella",
-      "image_url":
-          "https://m.media-amazon.com/images/I/41f2y3meruL._SX316_BO1,204,203,200_.jpg",
-      "available": "4",
-      "description": "Una muchacha se enamora de un muchacho",
-      "author": "Ernest Hemmingway",
-      "pages": 172,
-      "year": 1954,
-    },
-    {
-      "title": "La ladrona de libros",
-      "image_url":
-          "https://m.media-amazon.com/images/I/51w7Dd4gbmL._SX327_BO1,204,203,200_.jpg",
-      "available": "5",
-      "description": "Una muchacha que roba libros",
-      "author": "Ernest Hemmingway",
-      "pages": 172,
-      "year": 1954,
-    },
-  ];
+
+  final Stream<QuerySnapshot> books =
+      FirebaseFirestore.instance.collection('book').snapshots();
+  final Stream<QuerySnapshot> movies =
+      FirebaseFirestore.instance.collection('movie').snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -114,32 +79,67 @@ class _searchPageState extends State<SearchPage> {
                     ),
                     Divider(color: Colors.grey[100], thickness: 1),
                     Container(
-                      height: 150,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: ScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: _listElements.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return MaterialItem(material: _listElements[index]);
-                        },
-                      ),
-                    ),
+                        height: 150,
+                        child: StreamBuilder<QuerySnapshot>(
+                          stream: books,
+                          builder: ((BuildContext context,
+                              AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (snapshot.hasError) {
+                              return Text("Algo salió mal");
+                            }
+
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Center(child: CircularProgressIndicator());
+                            }
+
+                            final bookData = snapshot.requireData;
+
+                            return ListView.builder(
+                              itemCount: bookData.size ~/ 2,
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              physics: ScrollPhysics(),
+                              itemBuilder: (BuildContext context, int index) {
+                                return MaterialItem(
+                                    collection: bookData.docs[index]);
+                              },
+                            );
+                          }),
+                        )),
                     SizedBox(
                       height: 10,
                     ),
                     Container(
-                      height: 150,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: ScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: _listElements.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return MaterialItem(material: _listElements[index]);
-                        },
-                      ),
-                    ),
+                        height: 150,
+                        child: StreamBuilder<QuerySnapshot>(
+                          stream: books,
+                          builder: ((BuildContext context,
+                              AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (snapshot.hasError) {
+                              return Text("Algo salió mal");
+                            }
+
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Center(child: CircularProgressIndicator());
+                            }
+
+                            final bookData = snapshot.requireData;
+
+                            return ListView.builder(
+                              itemCount: bookData.size ~/ 2,
+                              shrinkWrap: true,
+                              physics: ScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (BuildContext context, int index) {
+                                return MaterialItem(
+                                    collection: bookData
+                                        .docs[index + bookData.size ~/ 2]);
+                              },
+                            );
+                          }),
+                        )),
                     SizedBox(
                       height: 30,
                     ),
@@ -149,30 +149,66 @@ class _searchPageState extends State<SearchPage> {
                     ),
                     Divider(color: Colors.grey[100], thickness: 1),
                     Container(
-                      height: 150,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: ScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: _listElements.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return MaterialItem(material: _listElements[index]);
-                        },
-                      ),
-                    ),
+                        height: 150,
+                        child: StreamBuilder<QuerySnapshot>(
+                          stream: movies,
+                          builder: ((BuildContext context,
+                              AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (snapshot.hasError) {
+                              return Text("Algo salió mal");
+                            }
+
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Center(child: CircularProgressIndicator());
+                            }
+
+                            final movieData = snapshot.requireData;
+
+                            return ListView.builder(
+                              itemCount: movieData.size ~/ 2,
+                              shrinkWrap: true,
+                              physics: ScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (BuildContext context, int index) {
+                                return MaterialItem(
+                                    collection: movieData.docs[index]);
+                              },
+                            );
+                          }),
+                        )),
                     SizedBox(
                       height: 10,
                     ),
                     Container(
                       height: 150,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: ScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: _listElements.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return MaterialItem(material: _listElements[index]);
-                        },
+                      child: StreamBuilder<QuerySnapshot>(
+                        stream: movies,
+                        builder: ((BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (snapshot.hasError) {
+                            return Text("Algo salió mal");
+                          }
+
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(child: CircularProgressIndicator());
+                          }
+
+                          final movieData = snapshot.requireData;
+
+                          return ListView.builder(
+                            itemCount: movieData.size ~/ 2,
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            physics: ScrollPhysics(),
+                            itemBuilder: (BuildContext context, int index) {
+                              return MaterialItem(
+                                  collection: movieData
+                                      .docs[index + movieData.size ~/ 2]);
+                            },
+                          );
+                        }),
                       ),
                     )
                   ],
