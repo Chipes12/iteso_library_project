@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterfire_ui/auth.dart';
 import 'package:iteso_library_project/pages/Calendar/calendario.dart';
 import 'package:iteso_library_project/pages/favoritos.dart';
 import 'package:iteso_library_project/pages/historial.dart';
@@ -69,6 +70,7 @@ class DrawerNav extends StatelessWidget {
               trailing: Icon(Icons.arrow_forward),
             ),
           ),
+          SignOutButton(),
         ],
       ),
     );
