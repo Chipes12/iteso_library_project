@@ -17,15 +17,15 @@ class Login2 extends StatelessWidget {
             providerConfigs: [
               EmailProviderConfiguration(),
             ],
-            // headerBuilder: (context, constraints, shrinkOffset) {
-            //   return Padding(
-            //     padding: const EdgeInsets.all(20),
-            //     child: AspectRatio(
-            //       aspectRatio: 1,
-            //       child: Image.asset('./assets/images/Iteso_logo.jpg'),
-            //     ),
-            //   );
-            // },
+            headerBuilder: (context, constraints, shrinkOffset) {
+              return Padding(
+                padding: const EdgeInsets.all(20),
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: Image.asset('./assets/images/Iteso_logo.jpg'),
+                ),
+              );
+            },
           );
         }
         return SearchPage();
