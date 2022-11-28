@@ -14,19 +14,22 @@ class MaterialItem extends StatelessWidget {
       children: [
         MaterialButton(
           onPressed: () {
-            if (collection["pages"] != null) {
+            print(collection.data());
+            try {
+              if (collection["duration"] != null) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MaterialDetailMovie(
+                            material: collection,
+                          )),
+                );
+              }
+            } catch (e) {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => MaterialDetailBook(
-                          material: collection,
-                        )),
-              );
-            } else {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => MaterialDetailMovie(
                           material: collection,
                         )),
               );
