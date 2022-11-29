@@ -8,18 +8,14 @@ class MaterialDetailMovie extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<MaterialDetailMovie> createState() => _MaterialDetailState(material);
+  State<MaterialDetailMovie> createState() => _MaterialDetailState();
 }
 
 class _MaterialDetailState extends State<MaterialDetailMovie> {
-  final dynamic material;
-
-  _MaterialDetailState(this.material);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('${material["title"]}'), actions: [
+        appBar: AppBar(title: Text('${widget.material["title"]}'), actions: [
           IconButton(
             icon: Icon(Icons.favorite),
             onPressed: () {},
@@ -32,7 +28,7 @@ class _MaterialDetailState extends State<MaterialDetailMovie> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 30),
                   child: Image.network(
-                    material["image_url"],
+                    widget.material["image_url"],
                     fit: BoxFit.fill,
                     height: 250,
                   ),
@@ -47,7 +43,7 @@ class _MaterialDetailState extends State<MaterialDetailMovie> {
                         Padding(
                           padding: const EdgeInsets.only(top: 5),
                           child: Text(
-                            "Disponibles: ${material["available"]}",
+                            "Disponibles: ${widget.material["available"]}",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 16),
                             textAlign: TextAlign.left,
@@ -56,7 +52,7 @@ class _MaterialDetailState extends State<MaterialDetailMovie> {
                         Padding(
                           padding: const EdgeInsets.only(top: 5),
                           child: Text(
-                            "Nombre: ${material["title"]}",
+                            "Título: ${widget.material["title"]}",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 16),
                             textAlign: TextAlign.left,
@@ -65,7 +61,7 @@ class _MaterialDetailState extends State<MaterialDetailMovie> {
                         Padding(
                           padding: const EdgeInsets.only(top: 5),
                           child: Text(
-                            "Escrito por: ${material["director"]}",
+                            "Dirigida por: ${widget.material["director"]}",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 16),
                             textAlign: TextAlign.left,
@@ -74,7 +70,7 @@ class _MaterialDetailState extends State<MaterialDetailMovie> {
                         Padding(
                           padding: const EdgeInsets.only(top: 5),
                           child: Text(
-                            "Año: ${material["year"]}",
+                            "Año: ${widget.material["year"]}",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 16),
                             textAlign: TextAlign.left,
@@ -83,7 +79,7 @@ class _MaterialDetailState extends State<MaterialDetailMovie> {
                         Padding(
                           padding: const EdgeInsets.only(top: 5),
                           child: Text(
-                            "Total de paginas: ${material["duration"]}",
+                            "Duración: ${widget.material["duration"]} minutos",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 16),
                             textAlign: TextAlign.left,
@@ -94,7 +90,7 @@ class _MaterialDetailState extends State<MaterialDetailMovie> {
                           child: GestureDetector(
                             onTap: () {},
                             child: Text(
-                              "${material["description"]}",
+                              "${widget.material["description"]}",
                               style: TextStyle(
                                   fontStyle: FontStyle.italic, fontSize: 16),
                               textAlign: TextAlign.justify,
@@ -112,7 +108,7 @@ class _MaterialDetailState extends State<MaterialDetailMovie> {
                       height: 40,
                       minWidth: 300,
                       color: Colors.blue,
-                      onPressed: material["available"] == 0
+                      onPressed: widget.material["available"] == 0
                           ? null
                           : () {
                               pickUpMaterial(context);
