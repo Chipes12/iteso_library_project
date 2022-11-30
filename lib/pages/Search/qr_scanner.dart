@@ -74,10 +74,11 @@ class _QRScannerState extends State<QRScanner> {
   }
 
   buildResult() {
-    return Text(
+    return Container(
+        child: Text(
       result != null ? 'Resultado: ${result!.code}' : 'Scan a code!',
       maxLines: 3,
       style: TextStyle(color: Colors.white),
-    );
+    ));
   }
 }
