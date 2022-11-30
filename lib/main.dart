@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:iteso_library_project/pages/Search/bloc/data_fire_b_bloc.dart';
 import 'package:iteso_library_project/pages/blocCamera/bloc/camera_bloc_bloc.dart';
-import 'package:iteso_library_project/pages/logIn/logIn.dart';
 import 'package:iteso_library_project/pages/logIn/login2.dart';
 
 void main() async {

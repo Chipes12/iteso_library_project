@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'messages.dart';
 
 class MaterialDetailMovie extends StatefulWidget {
-  final QueryDocumentSnapshot material;
+  final dynamic material;
   const MaterialDetailMovie({Key? key, required this.material})
       : super(key: key);
 

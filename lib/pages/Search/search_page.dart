@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iteso_library_project/Widgets/drawer.dart';
 import 'package:iteso_library_project/items/material_item.dart';
+import 'package:iteso_library_project/pages/Search/bloc/data_fire_b_bloc.dart';
 import 'package:iteso_library_project/pages/Search/qr_scanner.dart';
 
 class SearchPage extends StatefulWidget {
@@ -52,170 +54,210 @@ class _searchPageState extends State<SearchPage> {
                 height: 10,
               ),
               Center(
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: bookController,
-                      decoration: InputDecoration(
-                        filled: false,
-                        fillColor: Colors.grey[100],
-                        border: OutlineInputBorder(),
-                        label: Text(
-                          "Buscar un material",
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                        suffixIcon: IconButton(
-                          icon: Icon(Icons.search),
-                          onPressed: () {},
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "Libros",
-                      style: TextStyle(color: Colors.blue),
-                    ),
-                    Divider(color: Colors.grey[100], thickness: 1),
-                    Container(
-                        height: 150,
-                        child: StreamBuilder<QuerySnapshot>(
-                          stream: books,
-                          builder: ((BuildContext context,
-                              AsyncSnapshot<QuerySnapshot> snapshot) {
-                            if (snapshot.hasError) {
-                              return Text("Algo salió mal");
-                            }
-
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return Center(child: CircularProgressIndicator());
-                            }
-
-                            final bookData = snapshot.requireData;
-
-                            return ListView.builder(
-                              itemCount: bookData.size ~/ 2,
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              physics: ScrollPhysics(),
-                              itemBuilder: (BuildContext context, int index) {
-                                return MaterialItem(
-                                    collection: bookData.docs[index]);
-                              },
-                            );
-                          }),
-                        )),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                        height: 150,
-                        child: StreamBuilder<QuerySnapshot>(
-                          stream: books,
-                          builder: ((BuildContext context,
-                              AsyncSnapshot<QuerySnapshot> snapshot) {
-                            if (snapshot.hasError) {
-                              return Text("Algo salió mal");
-                            }
-
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return Center(child: CircularProgressIndicator());
-                            }
-
-                            final bookData = snapshot.requireData;
-
-                            return ListView.builder(
-                              itemCount: bookData.size ~/ 2,
-                              shrinkWrap: true,
-                              physics: ScrollPhysics(),
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (BuildContext context, int index) {
-                                return MaterialItem(
-                                    collection: bookData
-                                        .docs[index + bookData.size ~/ 2]);
-                              },
-                            );
-                          }),
-                        )),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Text(
-                      "Peliculas",
-                      style: TextStyle(color: Colors.blue),
-                    ),
-                    Divider(color: Colors.grey[100], thickness: 1),
-                    Container(
-                        height: 150,
-                        child: StreamBuilder<QuerySnapshot>(
-                          stream: movies,
-                          builder: ((BuildContext context,
-                              AsyncSnapshot<QuerySnapshot> snapshot) {
-                            if (snapshot.hasError) {
-                              return Text("Algo salió mal");
-                            }
-
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return Center(child: CircularProgressIndicator());
-                            }
-
-                            final movieData = snapshot.requireData;
-
-                            return ListView.builder(
-                              itemCount: movieData.size ~/ 2,
-                              shrinkWrap: true,
-                              physics: ScrollPhysics(),
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (BuildContext context, int index) {
-                                return MaterialItem(
-                                    collection: movieData.docs[index]);
-                              },
-                            );
-                          }),
-                        )),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      height: 150,
-                      child: StreamBuilder<QuerySnapshot>(
-                        stream: movies,
-                        builder: ((BuildContext context,
-                            AsyncSnapshot<QuerySnapshot> snapshot) {
-                          if (snapshot.hasError) {
-                            return Text("Algo salió mal");
-                          }
-
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Center(child: CircularProgressIndicator());
-                          }
-
-                          final movieData = snapshot.requireData;
-
-                          return ListView.builder(
-                            itemCount: movieData.size ~/ 2,
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            physics: ScrollPhysics(),
-                            itemBuilder: (BuildContext context, int index) {
-                              return MaterialItem(
-                                  collection: movieData
-                                      .docs[index + movieData.size ~/ 2]);
-                            },
-                          );
-                        }),
-                      ),
-                    )
-                  ],
-                ),
+                child: stateWidget(),
               ),
             ],
           ),
         ));
+  }
+
+  Column allElements() {
+    return Column(
+      children: [
+        searchField(),
+        SizedBox(
+          height: 10,
+        ),
+        Text(
+          "Libros",
+          style: TextStyle(color: Colors.blue),
+        ),
+        Divider(color: Colors.grey[100], thickness: 1),
+        Container(
+            height: 150,
+            child: StreamBuilder<QuerySnapshot>(
+              stream: books,
+              builder: ((BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasError) {
+                  return Text("Algo salió mal");
+                }
+
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                }
+
+                final bookData = snapshot.requireData;
+
+                return ListView.builder(
+                  itemCount: bookData.size ~/ 2,
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  physics: ScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    return MaterialItem(collection: bookData.docs[index]);
+                  },
+                );
+              }),
+            )),
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+            height: 150,
+            child: StreamBuilder<QuerySnapshot>(
+              stream: books,
+              builder: ((BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasError) {
+                  return Text("Algo salió mal");
+                }
+
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                }
+
+                final bookData = snapshot.requireData;
+
+                return ListView.builder(
+                  itemCount: bookData.size ~/ 2,
+                  shrinkWrap: true,
+                  physics: ScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (BuildContext context, int index) {
+                    return MaterialItem(
+                        collection: bookData.docs[index + bookData.size ~/ 2]);
+                  },
+                );
+              }),
+            )),
+        SizedBox(
+          height: 30,
+        ),
+        Text(
+          "Peliculas",
+          style: TextStyle(color: Colors.blue),
+        ),
+        Divider(color: Colors.grey[100], thickness: 1),
+        Container(
+            height: 150,
+            child: StreamBuilder<QuerySnapshot>(
+              stream: movies,
+              builder: ((BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasError) {
+                  return Text("Algo salió mal");
+                }
+
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                }
+
+                final movieData = snapshot.requireData;
+
+                return ListView.builder(
+                  itemCount: movieData.size ~/ 2,
+                  shrinkWrap: true,
+                  physics: ScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (BuildContext context, int index) {
+                    return MaterialItem(collection: movieData.docs[index]);
+                  },
+                );
+              }),
+            )),
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+          height: 150,
+          child: StreamBuilder<QuerySnapshot>(
+            stream: movies,
+            builder:
+                ((BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError) {
+                return Text("Algo salió mal");
+              }
+
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              }
+
+              final movieData = snapshot.requireData;
+
+              return ListView.builder(
+                itemCount: movieData.size ~/ 2,
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                physics: ScrollPhysics(),
+                itemBuilder: (BuildContext context, int index) {
+                  return MaterialItem(
+                      collection: movieData.docs[index + movieData.size ~/ 2]);
+                },
+              );
+            }),
+          ),
+        )
+      ],
+    );
+  }
+
+  TextField searchField() {
+    return TextField(
+      controller: bookController,
+      decoration: InputDecoration(
+        filled: false,
+        fillColor: Colors.grey[100],
+        border: OutlineInputBorder(),
+        label: Text(
+          "Buscar un material",
+          style: TextStyle(color: Colors.grey),
+        ),
+        suffixIcon: IconButton(
+          icon: Icon(Icons.search),
+          onPressed: () {
+            BlocProvider.of<DataFireBBloc>(context)
+                .add(SearchEvent(strToSearch: bookController.text));
+          },
+        ),
+      ),
+    );
+  }
+
+  BlocConsumer<DataFireBBloc, DataFireBState> stateWidget() {
+    return BlocConsumer<DataFireBBloc, DataFireBState>(
+      listener: ((context, state) {
+        if (state is DataNotFoundState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text("No se encontró el material")));
+        }
+      }),
+      builder: (context, state) {
+        if (state is DataSearchingState) {
+          return Column(
+            children: [
+              searchField(),
+              Center(child: CircularProgressIndicator()),
+            ],
+          );
+        } else if (state is DataFoundState) {
+          return Column(
+            children: [
+              searchField(),
+              SizedBox(
+                height: 20,
+              ),
+              Center(
+                child: MaterialItem(
+                    collection: context.watch<DataFireBBloc>().results),
+              ),
+            ],
+          );
+        } else if (state is DataNotFoundState) {
+          return allElements();
+        } else
+          return allElements();
+      },
+    );
   }
 }

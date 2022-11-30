@@ -4,7 +4,7 @@ import 'package:iteso_library_project/pages/Material/check_book.dart';
 import 'package:iteso_library_project/pages/Material/check_movie.dart';
 
 class MaterialItem extends StatelessWidget {
-  final QueryDocumentSnapshot collection;
+  final dynamic collection;
   const MaterialItem({super.key, required this.collection});
 
   @override
@@ -14,7 +14,7 @@ class MaterialItem extends StatelessWidget {
       children: [
         MaterialButton(
           onPressed: () {
-            print(collection.data());
+            //print(collection.data());
             try {
               if (collection["duration"] != null) {
                 Navigator.push(
