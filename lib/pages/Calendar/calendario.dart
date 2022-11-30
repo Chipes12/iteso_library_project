@@ -3,6 +3,8 @@ import 'package:iteso_library_project/Widgets/drawer.dart';
 import 'package:iteso_library_project/pages/Calendar/material_return.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
+import 'package:iteso_library_project/providers/rent_provider.dart';
+import 'package:provider/provider.dart';
 
 class Calendario extends StatefulWidget {
   const Calendario({super.key});
@@ -12,16 +14,10 @@ class Calendario extends StatefulWidget {
 }
 
 class _CalendarioState extends State<Calendario> {
-  Map<dynamic, List<MaterialReturn>> selectedMaterial = {
-    DateFormat('yyyy-MM-dd').format(DateTime.now()): [
-      MaterialReturn(
-        title: "El libro de la selva",
-        isABook: true,
-      )
-    ]
-  };
+  Map<dynamic, List<dynamic>> selectedMaterial = {};
   DateTime _selectedDay = DateTime.now();
   DateTime _focusedDay = DateTime.now();
+  
   void _onDaySelected(DateTime day, DateTime focusedDay){
     setState(() {
       _selectedDay = day;
@@ -29,12 +25,16 @@ class _CalendarioState extends State<Calendario> {
   }
   CalendarFormat _format = CalendarFormat.month;
 
-  List<MaterialReturn> _getMaterialsfromDay(DateTime date) {
+  List<dynamic> _getMaterialsfromDay(DateTime date) {
+    print(_selectedDay);
     return selectedMaterial[DateFormat('yyyy-MM-dd').format(date)] ?? [];
   }
 
   @override
   Widget build(BuildContext context) {
+    _getMaterialsfromDay(_selectedDay).forEach((element) {print(element);});
+    context.read<RentProvider>().getRents();
+    selectedMaterial = context.read<RentProvider>().getRentsList;
     return Scaffold(
       appBar: AppBar(
           title: Text(
@@ -119,21 +119,21 @@ class _CalendarioState extends State<Calendario> {
                 SizedBox(
                   height: 20,
                 ),
-                Container(
-                    height: 200,
-                    child: ListView(
-                      children: [
-                        ..._getMaterialsfromDay(_selectedDay).map(
-                          (MaterialReturn mr) => Card(
-                            child: ListTile(
-                              leading:
-                                  Icon(mr.isABook ? Icons.book : Icons.movie),
-                              title: Text(mr.title),
-                            ),
-                          ),
-                        )
-                      ],
-                    )),
+                // Container(
+                //     height: 200,
+                //     child: ListView(
+                //       children: [
+                //         ..._getMaterialsfromDay(_selectedDay).map(
+                //           (dynamic m) => Card(
+                //             child: ListTile(
+                //               leading:
+                //                   Icon(m["isabook"] ? Icons.book : Icons.movie),
+                //               title: Text(m["title"]),
+                //             ),
+                //           ),
+                //         )
+                //       ],
+                //     )),
               ],
             ),
           ],

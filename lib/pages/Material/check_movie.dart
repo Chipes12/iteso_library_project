@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'messages.dart';
+import 'package:iteso_library_project/pages/Search/search_page.dart';
+import 'package:iteso_library_project/providers/rent_provider.dart';
+import '../../providers/messages.dart';
+import 'package:provider/provider.dart';
 
 class MaterialDetailMovie extends StatefulWidget {
   final dynamic material;
@@ -111,6 +114,9 @@ class _MaterialDetailState extends State<MaterialDetailMovie> {
                       onPressed: widget.material["available"] == 0
                           ? null
                           : () {
+                              context
+                                  .read<RentProvider>()
+                                  .rentMaterial(widget.material);
                               pickUpMaterial(context);
                             },
                       child: Text(

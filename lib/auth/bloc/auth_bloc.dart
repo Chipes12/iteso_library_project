@@ -39,7 +39,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   FutureOr<void> _authUser(event, emit) async {
     emit(AuthAwaitingState());
     try {
-      await _authRepo.signInWithGoogle();
+      await _authRepo.signInWithMail();
       emit(AuthSuccessState());
     } catch (e) {
       print("Error al autenticar: $e");

@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
+import 'package:iteso_library_project/Repositories/user_auth_repo.dart';
 import 'package:iteso_library_project/pages/Search/search_page.dart';
+ UserAuthRepository _authRepo = UserAuthRepository();
 
 class Login2 extends StatelessWidget {
   const Login2({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -28,6 +30,7 @@ class Login2 extends StatelessWidget {
             },
           );
         }
+        _authRepo.signInWithMail();
         return SearchPage();
       }),
     );

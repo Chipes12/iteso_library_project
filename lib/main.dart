@@ -5,18 +5,27 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:iteso_library_project/pages/Search/bloc/data_fire_b_bloc.dart';
 import 'package:iteso_library_project/pages/blocCamera/bloc/camera_bloc_bloc.dart';
 import 'package:iteso_library_project/pages/logIn/login2.dart';
+import 'package:iteso_library_project/providers/rent_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  initializeDateFormatting().then((_) => runApp(MultiBlocProvider(providers: [
-        BlocProvider(
-          create: (context) => CameraBlocBloc(),
+  initializeDateFormatting().then((_) => runApp(
+        MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => CameraBlocBloc(),
+            ),
+            BlocProvider(
+              create: (context) => DataFireBBloc(),
+            ),
+          ],
+          child: MultiProvider(providers: [
+            ChangeNotifierProvider<RentProvider>(create: (_) => RentProvider()),
+          ], child: MyApp()),
         ),
-        BlocProvider(
-          create: (context) => DataFireBBloc(),
-        ),
-      ], child: MyApp())));
+      ));
 }
 
 class MyApp extends StatelessWidget {

@@ -20,29 +20,7 @@ class UserAuthRepository {
     await _auth.signOut();
   }
 
-  Future<void> signInWithGoogle() async {
-    //Google sign in
-    final googleUser = await _googleSignIn.signIn();
-    final googleAuth = await googleUser!.authentication;
-
-    print(">> User email:${googleUser.email}");
-    print(">> User name:${googleUser.displayName}");
-    print(">> User photo:${googleUser.photoUrl}");
-
-    // credenciales de usuario autenticado con Google
-    final AuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-    // firebase sign in con credenciales de Google
-    final authResult = await _auth.signInWithCredential(credential);
-
-    // Extraer token**
-    // User user = authResult.user!;
-    // final firebaseToken = await user.getIdToken();
-    // print("user fcm token:${firebaseToken}");
-
-    // crear tabla user en firebase cloudFirestore y agregar valor fotoListId []
+  Future<void> signInWithMail() async {
     await _createUserCollectionFirebase(_auth.currentUser!.uid);
   }
 
