@@ -7,7 +7,7 @@ part 'data_fire_b_event.dart';
 part 'data_fire_b_state.dart';
 
 class DataFireBBloc extends Bloc<DataFireBEvent, DataFireBState> {
-  dynamic results;
+  List<dynamic> results = [];
 
   DataFireBBloc() : super(DataFireBInitial()) {
     on<SearchEvent>(_getData);
@@ -16,21 +16,45 @@ class DataFireBBloc extends Bloc<DataFireBEvent, DataFireBState> {
   FutureOr<void> _getData(SearchEvent event, Emitter emit) async {
     emit(DataSearchingState());
     results = await searchOnFireBase(event.strToSearch);
-    if (results != null) {
+    if (results.length > 0) {
       //print("QUIEN SOY " + results["title"]);
       emit(DataFoundState());
-    } else {
+    } else if (results.length == 0) {
       emit(DataNotFoundState());
     }
   }
 
   dynamic searchOnFireBase(String toSearch) async {
-    dynamic result = null;
+    List<dynamic> result = [];
     await FirebaseFirestore.instance
         .collection('book')
-        .where('title', isEqualTo: toSearch)
+        .where('searchOptions', arrayContains: toSearch)
         .get()
-        .then((value) => result = value.docs[0].data());
+        .then((value) => {
+              if (value.docs.length > 0)
+                {
+                  value.docs.forEach((element) {
+                    result.add(element.data());
+                  })
+                }
+              else
+                {result.clear()}
+            });
+
+    if (result.length == 0) {
+      await FirebaseFirestore.instance
+          .collection('movie')
+          .where('searchOptions', arrayContains: toSearch)
+          .get()
+          .then((value) => {
+                if (value.docs.length > 0)
+                  value.docs.forEach((element) {
+                    result.add(element.data());
+                  })
+                else
+                  {result.clear()}
+              });
+    }
     print(result);
     return result;
   }

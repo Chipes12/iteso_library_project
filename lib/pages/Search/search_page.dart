@@ -228,8 +228,9 @@ class _searchPageState extends State<SearchPage> {
     return BlocConsumer<DataFireBBloc, DataFireBState>(
       listener: ((context, state) {
         if (state is DataNotFoundState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("No se encontró el material")));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(
+                  "No se encontró el material, regresando a todos los elementos")));
         }
       }),
       builder: (context, state) {
@@ -241,17 +242,29 @@ class _searchPageState extends State<SearchPage> {
             ],
           );
         } else if (state is DataFoundState) {
-          return Column(
-            children: [
-              searchField(),
-              SizedBox(
-                height: 20,
-              ),
-              Center(
-                child: MaterialItem(
-                    collection: context.watch<DataFireBBloc>().results),
-              ),
-            ],
+          return Container(
+            child: Column(
+              children: [
+                searchField(),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  height: 150,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    physics: ScrollPhysics(),
+                    itemCount: context.watch<DataFireBBloc>().results.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return MaterialItem(
+                          collection:
+                              context.watch<DataFireBBloc>().results[index]);
+                    },
+                  ),
+                ),
+              ],
+            ),
           );
         } else if (state is DataNotFoundState) {
           return allElements();

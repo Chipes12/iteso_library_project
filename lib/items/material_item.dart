@@ -24,8 +24,17 @@ class MaterialItem extends StatelessWidget {
                             material: collection,
                           )),
                 );
+              } else {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MaterialDetailBook(
+                            material: collection,
+                          )),
+                );
               }
             } catch (e) {
+              print(e.toString());
               Navigator.push(
                 context,
                 MaterialPageRoute(
