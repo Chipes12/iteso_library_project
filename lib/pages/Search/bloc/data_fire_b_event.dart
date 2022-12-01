@@ -8,7 +8,7 @@ abstract class DataFireBEvent extends Equatable {
 }
 
 class SearchEvent extends DataFireBEvent {
-  final String strToSearch;
+  final String? strToSearch;
 
   SearchEvent({required this.strToSearch});
 }

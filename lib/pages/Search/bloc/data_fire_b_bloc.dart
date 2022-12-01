@@ -24,7 +24,7 @@ class DataFireBBloc extends Bloc<DataFireBEvent, DataFireBState> {
     }
   }
 
-  dynamic searchOnFireBase(String toSearch) async {
+  dynamic searchOnFireBase(String? toSearch) async {
     List<dynamic> result = [];
     await FirebaseFirestore.instance
         .collection('book')

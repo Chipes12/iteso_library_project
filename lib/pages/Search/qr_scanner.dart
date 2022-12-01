@@ -1,6 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iteso_library_project/items/material_item.dart';
+import 'package:iteso_library_project/pages/Search/bloc/data_fire_b_bloc.dart';
+import 'package:iteso_library_project/pages/Search/search_page.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QRScanner extends StatefulWidget {
@@ -68,10 +72,28 @@ class _QRScannerState extends State<QRScanner> {
 
   buildResult() {
     return Container(
-        child: Text(
-      result != null ? 'Resultado: ${result!.code}' : 'Scan a code!',
-      maxLines: 3,
-      style: TextStyle(color: Colors.white),
+        child: Column(
+      children: [
+        Text(
+          result != null ? 'Resultado: ${result!.code}' : 'Scan a code!',
+          maxLines: 3,
+          style: TextStyle(color: Colors.white),
+        ),
+        Container(
+          child: result != null
+              ? ElevatedButton(
+                  onPressed: () {
+                    BlocProvider.of<DataFireBBloc>(context)
+                        .add(SearchEvent(strToSearch: result!.code));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: ((context) => SearchPage())));
+                  },
+                  child: Text("Buscar"))
+              : SizedBox(
+                  height: 10,
+                ),
+        )
+      ],
     ));
   }
 }
