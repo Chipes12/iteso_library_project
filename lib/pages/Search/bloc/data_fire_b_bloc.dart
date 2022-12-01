@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 part 'data_fire_b_event.dart';
 part 'data_fire_b_state.dart';
@@ -11,6 +12,7 @@ class DataFireBBloc extends Bloc<DataFireBEvent, DataFireBState> {
 
   DataFireBBloc() : super(DataFireBInitial()) {
     on<SearchEvent>(_getData);
+    on<AddFavoriteEvent>(_addMaterial);
   }
 
   FutureOr<void> _getData(SearchEvent event, Emitter emit) async {
@@ -57,5 +59,20 @@ class DataFireBBloc extends Bloc<DataFireBEvent, DataFireBState> {
     }
     print(result);
     return result;
+  }
+
+  FutureOr<void> _addMaterial(AddFavoriteEvent event, Emitter emit) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .set({
+        "favorites": FieldValue.arrayUnion([event.title])
+      }, SetOptions(merge: true));
+      emit(FavoriteSetState());
+    } catch (e) {
+      print(e.toString());
+      emit(ErrorState());
+    }
   }
 }

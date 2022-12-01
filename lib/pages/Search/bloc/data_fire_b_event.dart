@@ -12,3 +12,9 @@ class SearchEvent extends DataFireBEvent {
 
   SearchEvent({required this.strToSearch});
 }
+
+class AddFavoriteEvent extends DataFireBEvent {
+  final String? title;
+
+  AddFavoriteEvent({required this.title});
+}

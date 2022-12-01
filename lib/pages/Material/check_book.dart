@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iteso_library_project/providers/rent_provider.dart';
 import '../../providers/messages.dart';
-import 'package:provider/provider.dart';
+//import 'package:provider/provider.dart';
+
+import '../Search/bloc/data_fire_b_bloc.dart';
 
 class MaterialDetailBook extends StatefulWidget {
   final dynamic material;
@@ -23,7 +26,11 @@ class _MaterialDetailState extends State<MaterialDetailBook> {
         appBar: AppBar(title: Text('${material["title"]}'), actions: [
           IconButton(
             icon: Icon(Icons.favorite),
-            onPressed: () {},
+            onPressed: () {
+              rentDialog(context);
+              BlocProvider.of<DataFireBBloc>(context)
+                  .add(AddFavoriteEvent(title: widget.material["title"]));
+            },
           ),
         ]),
         body: SingleChildScrollView(
@@ -132,5 +139,24 @@ class _MaterialDetailState extends State<MaterialDetailBook> {
             ],
           ),
         ));
+  }
+
+  void rentDialog(context) {
+    showDialog(
+        context: context,
+        builder: ((context) {
+          return AlertDialog(
+            title: Text("Agregado a favoritos"),
+            content: Text(
+                "El material ${widget.material["title"]} ha sido agregado a tu lista de favoritos"),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Entendido"))
+            ],
+          );
+        }));
   }
 }

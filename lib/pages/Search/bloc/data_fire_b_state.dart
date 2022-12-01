@@ -17,3 +17,4 @@ class DataNotFoundState extends DataFireBState {}
 
 class ErrorState extends DataFireBState {}
 
+class FavoriteSetState extends DataFireBState {}
