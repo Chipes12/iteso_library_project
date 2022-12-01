@@ -22,13 +22,6 @@ class _QRScannerState extends State<QRScanner> {
     super.dispose();
   }
 
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   controller!.resumeCamera();
-  // }
-
   @override
   void reassemble() async {
     //implement reassemble
