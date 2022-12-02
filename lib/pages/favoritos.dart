@@ -27,15 +27,6 @@ class _FavoritosState extends State<Favoritos> {
           padding: EdgeInsets.all(10),
           child: Column(
             children: [
-              TextField(
-                onChanged: (value) {},
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    hintText: "Buscar",
-                    suffixIcon:
-                        IconButton(onPressed: () {}, icon: Icon(Icons.search))),
-              ),
               SizedBox(
                 height: 25,
               ),
