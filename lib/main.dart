@@ -6,6 +6,7 @@ import 'package:iteso_library_project/pages/Search/bloc/data_fire_b_bloc.dart';
 import 'package:iteso_library_project/pages/blocCamera/bloc/camera_bloc_bloc.dart';
 import 'package:iteso_library_project/pages/logIn/login2.dart';
 import 'package:iteso_library_project/providers/favorites_provider.dart';
+import 'package:iteso_library_project/providers/record_provider.dart';
 import 'package:iteso_library_project/providers/rent_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +25,8 @@ void main() async {
           ],
           child: MultiProvider(providers: [
             ChangeNotifierProvider<RentProvider>(create: (_) => RentProvider()),
-            ChangeNotifierProvider<FavProvider>(create: (_) => FavProvider())
+            ChangeNotifierProvider<FavProvider>(create: (_) => FavProvider()),
+            ChangeNotifierProvider<RecordProvider>(create: (_) => RecordProvider())
           ], child: MyApp()),
         ),
       ));

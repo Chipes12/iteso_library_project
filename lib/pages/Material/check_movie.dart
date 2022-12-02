@@ -20,6 +20,7 @@ class _MaterialDetailState extends State<MaterialDetailMovie> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.grey[200],
         appBar: AppBar(title: Text('${widget.material["title"]}'), actions: [
           IconButton(
             icon: Icon(Icons.favorite),

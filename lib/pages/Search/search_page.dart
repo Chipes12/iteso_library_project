@@ -27,6 +27,7 @@ class _searchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.grey[200],
         appBar: AppBar(
           title: Text(
             "Libreria ITESO",
