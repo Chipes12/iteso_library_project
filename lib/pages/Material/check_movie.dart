@@ -1,6 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:iteso_library_project/pages/Search/search_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iteso_library_project/pages/Search/bloc/data_fire_b_bloc.dart';
+//import 'package:iteso_library_project/pages/Search/search_page.dart';
 import 'package:iteso_library_project/providers/rent_provider.dart';
 import '../../providers/messages.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +23,10 @@ class _MaterialDetailState extends State<MaterialDetailMovie> {
         appBar: AppBar(title: Text('${widget.material["title"]}'), actions: [
           IconButton(
             icon: Icon(Icons.favorite),
-            onPressed: () {},
+            onPressed: () {
+              BlocProvider.of<DataFireBBloc>(context)
+                  .add(AddFavoriteEvent(title: widget.material["title"]));
+            },
           ),
         ]),
         body: SingleChildScrollView(
