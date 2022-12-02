@@ -21,8 +21,6 @@ class RecordProvider with ChangeNotifier {
   List<dynamic> get getOthers => _others;
 
   Future<void> loadRecord() async {
-  await db.collection("rent").doc("3NwPFHh1LULkI2pqZOzi").get().then((value) => print(value.data()));
-
     var today = DateFormat('yyyy-MM-dd').format(DateTime.now()).split("-");
     await db
         .collection("users")
@@ -34,35 +32,64 @@ class RecordProvider with ChangeNotifier {
               _thisMonth = [],
               user.data()!["record"].forEach((record) async {
                 List<String> date;
-                await db.collection("rent").doc(record).get().then((rent) async => {
-                  print(rent.data()),
-                  date = rent.data()!["startDate"].toString().split('-'),
-                  await db.collection("book").doc(record["id_material"]).get().then((value) => {
-                    if(value.exists){
-                      if(today[1] == date[1]) _thisMonth.add(value.data())
+                await db.collection("rent").doc(record).get().then((renta) async => {
+                  date = renta.data()!["startDate"].toString().split('-'),
+                  if(renta.data()!["isabook"]){
+                    await db.collection("book").doc(renta.data()!["id_material"]).get().then((book) => {
+                      if(today[1] == date[1]) _thisMonth.add(book.data())
                       else if (int.parse(today[1]) - 1 == int.parse(date[1]) || (today[1] == '01' && date[1] == '12')){
-                        _lastMonth.add(value.data())
+                        _lastMonth.add(book.data())
                       } else if(today[0] == date[0]){
-                        _thisYear.add(value.data())
+                        _thisYear.add(book.data())
                       } else{
-                        _others.add(value.data())
+                        _others.add(book.data())
                       }
-                    }
-                  }),
-                  await db.collection("movie").doc(record["id_material"]).get().then((value) => {
-                    if(value.exists){
-                      if(today[1] == date[1]) _thisMonth.add(value.data())
+                    })
+                  } else {
+                    await db.collection("movie").doc(renta.data()!["id_material"]).get().then((book) => {
+                      if(today[1] == date[1]) _thisMonth.add(book.data())
                       else if (int.parse(today[1]) - 1 == int.parse(date[1]) || (today[1] == '01' && date[1] == '12')){
-                        _lastMonth.add(value.data())
+                        _lastMonth.add(book.data())
                       } else if(today[0] == date[0]){
-                        _thisYear.add(value.data())
+                        _thisYear.add(book.data())
                       } else{
-                        _others.add(value.data())
+                        _others.add(book.data())
                       }
-                    }
-                  }),
-                  });
+                    })
+                  }
+                });
               })
             });
   }
 }
+
+
+                // List<String> date;
+                // await db.collection("rent").doc(record).get().then((rent) async => {
+                //   print(rent.data()),
+                //   date = rent.data()!["startDate"].toString().split('-'),
+                //   await db.collection("book").doc(record["id_material"]).get().then((value) => {
+                //     if(value.exists){
+                      // if(today[1] == date[1]) _thisMonth.add(value.data())
+                      // else if (int.parse(today[1]) - 1 == int.parse(date[1]) || (today[1] == '01' && date[1] == '12')){
+                      //   _lastMonth.add(value.data())
+                      // } else if(today[0] == date[0]){
+                      //   _thisYear.add(value.data())
+                      // } else{
+                      //   _others.add(value.data())
+                      // }
+                //     }
+                //   }),
+                //   await db.collection("movie").doc(record["id_material"]).get().then((value) => {
+                //     if(value.exists){
+                //       if(today[1] == date[1]) _thisMonth.add(value.data())
+                //       else if (int.parse(today[1]) - 1 == int.parse(date[1]) || (today[1] == '01' && date[1] == '12')){
+                //         _lastMonth.add(value.data())
+                //       } else if(today[0] == date[0]){
+                //         _thisYear.add(value.data())
+                //       } else{
+                //         _others.add(value.data())
+                //       }
+                //     }
+                //   }),
+                //   });

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:iteso_library_project/Widgets/drawer.dart';
-import 'package:iteso_library_project/pages/Calendar/material_return.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
 import 'package:iteso_library_project/providers/rent_provider.dart';
@@ -26,7 +25,6 @@ class _CalendarioState extends State<Calendario> {
   CalendarFormat _format = CalendarFormat.month;
 
   List<dynamic> _getMaterialsfromDay(DateTime date) {
-    // print(context.read<RentProvider>().getRentsList[DateFsormat('yyyy-MM-dd').format(date)]?.length);
     return context.read<RentProvider>().getRentsList[DateFormat('yyyy-MM-dd').format(date)] ?? [];
   }
 

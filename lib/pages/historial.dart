@@ -25,64 +25,119 @@ class _HistorialState extends State<Historial> {
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(10),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 25,
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Este mes",
-                  style: TextStyle(fontSize: 20),
+          child: Container(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 25,
                 ),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Text("${mesPasado.length}"),
-              Container(
-                height: 230,
-                  child: ListView.builder(
-                      itemCount: mes.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        var _item = mes[index];
-                        return Card(
-                          child: ListTile(
-                            title: Text(_item["title"]),
-                            trailing: Icon(_item.containsKey("pages") ? Icons.book : Icons.movie),
-                          ),
-                        );
-                      })
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Mes pasado",
-                  style: TextStyle(fontSize: 20),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Este mes",
+                    style: TextStyle(fontSize: 20),
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Container(
-                height: 200,
-                  child: ListView.builder(
-                      itemCount: mesPasado.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        var _item = mesPasado[index];
-                        return Card(
-                          child: ListTile(
-                            title: Text(_item["title"]),
-                            trailing: Icon(_item.containsKey("pages") ? Icons.book : Icons.movie),
-                          ),
-                        );
-                      })
-              )
-            ],
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  height: 230,
+                    child: ListView.builder(
+                        itemCount: mes.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          var _item = mes[index];
+                          return Card(
+                            child: ListTile(
+                              title: Text(_item["title"]),
+                              trailing: Icon(_item.containsKey("pages") ? Icons.book : Icons.movie),
+                            ),
+                          );
+                        })
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Mes pasado",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  height: 200,
+                    child: ListView.builder(
+                        itemCount: mesPasado.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          var _item = mesPasado[index];
+                          return Card(
+                            child: ListTile(
+                              title: Text(_item["title"]),
+                              trailing: Icon(_item.containsKey("pages") ? Icons.book : Icons.movie),
+                            ),
+                          );
+                        })
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Este año",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  height: 230,
+                    child: ListView.builder(
+                        itemCount: year.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          var _item = year[index];
+                          return Card(
+                            child: ListTile(
+                              title: Text(_item["title"]),
+                              trailing: Icon(_item.containsKey("pages") ? Icons.book : Icons.movie),
+                            ),
+                          );
+                        })
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "En el pasado",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  height: 230,
+                    child: ListView.builder(
+                        itemCount: otros.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          var _item = otros[index];
+                          return Card(
+                            child: ListTile(
+                              title: Text(_item["title"]),
+                              trailing: Icon(_item.containsKey("pages") ? Icons.book : Icons.movie),
+                            ),
+                          );
+                        })
+                ),
+              ],
+            ),
           ),
         ),
       ),
