@@ -91,6 +91,7 @@ class RentProvider with ChangeNotifier {
         .where('id_user', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
         .get()
         .then((value) async => {
+          _myRents = {},
               value.docs.forEach((element) async {
                 await element.data()["isabook"]
                     ? db.collection("book").doc(element["id_material"]).get().then((value) => {

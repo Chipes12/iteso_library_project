@@ -117,8 +117,6 @@ class _CalendarioState extends State<Calendario> {
                 SizedBox(
                   height: 20,
                 ),
-                Text(_getMaterialsfromDay(_selectedDay).length.toString()),
-                Text(context.read<RentProvider>().getRentsList.length.toString()),
                 Container(
                     height: 200,
                     child: ListView(
