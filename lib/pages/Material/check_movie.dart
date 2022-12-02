@@ -24,6 +24,7 @@ class _MaterialDetailState extends State<MaterialDetailMovie> {
           IconButton(
             icon: Icon(Icons.favorite),
             onPressed: () {
+              rentDialog(context);
               BlocProvider.of<DataFireBBloc>(context)
                   .add(AddFavoriteEvent(title: widget.material["title"]));
             },
@@ -135,5 +136,24 @@ class _MaterialDetailState extends State<MaterialDetailMovie> {
             ],
           ),
         ));
+  }
+
+  void rentDialog(context) {
+    showDialog(
+        context: context,
+        builder: ((context) {
+          return AlertDialog(
+            title: Text("Agregado a favoritos"),
+            content: Text(
+                "El material ${widget.material["title"]} ha sido agregado a tu lista de favoritos"),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Entendido"))
+            ],
+          );
+        }));
   }
 }
