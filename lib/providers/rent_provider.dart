@@ -115,7 +115,6 @@ class RentProvider with ChangeNotifier {
                     });
               })
             });
-            notifyListeners();
   }
 
 
