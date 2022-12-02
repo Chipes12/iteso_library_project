@@ -5,6 +5,7 @@ import 'package:iteso_library_project/Widgets/drawer.dart';
 import 'package:iteso_library_project/items/material_item.dart';
 import 'package:iteso_library_project/pages/Search/bloc/data_fire_b_bloc.dart';
 import 'package:iteso_library_project/pages/Search/qr_scanner.dart';
+import 'package:iteso_library_project/providers/rent_provider.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({

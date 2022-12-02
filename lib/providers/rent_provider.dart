@@ -12,6 +12,10 @@ class RentProvider with ChangeNotifier {
   Map<dynamic, List<dynamic>> _myRents = {};
   Map<dynamic, List<dynamic>> get getRentsList => _myRents;
 
+  void myRentsTo0(){
+    _myRents = {};
+  }
+
   Future<void> rentMaterial(dynamic material) async {
     var dtStart = DateTime.now();
     if (dtStart.hour < 19 && isTodayLabourDay(dtStart.weekday)) {
@@ -93,17 +97,37 @@ class RentProvider with ChangeNotifier {
                       if (_myRents[element.data()["endDate"]] == null) {
                         _myRents[element.data()["endDate"]] = [value.data()]
                       } else {
-                        _myRents[element.data()["endDate"]]?.add(value.data())
+                        if(!_myRents[element.data()["endDate"]]!.contains(value.data())){
+                           _myRents[element.data()["endDate"]]!.add(value.data())
+                        }
                       }
                     })
                     : db.collection("movie").doc(element["id_material"]).get().then((value) => {
+                      value.data()!["isabook"] = element.data()["isabook"],
                       if (_myRents[element.data()["endDate"]] == null) {
                          _myRents[element.data()["endDate"]] = [value.data()]
                       } else {
-                        _myRents[element.data()["endDate"]]?.add(value.data())
+                        if(!_myRents[element.data()["endDate"]]!.contains(value.data())){
+                           _myRents[element.data()["endDate"]]!.add(value.data())
+                        }
                       }
                     });
               })
             });
+  }
+
+
+  Future<void> rellenar() async {
+    db.collection('movie').get().then((value) => {
+      value.docs.forEach((element) {
+        List<String> searchOptions = [];
+        String temp = '';
+        element.data()["title"].toString().split("").forEach((letra) => {
+            temp = temp + letra,
+            searchOptions.add(temp)
+        });
+        db.collection('movie').doc(element.id).update({"searchOptions": FieldValue.arrayUnion(searchOptions)});
+      })
+    });
   }
 }

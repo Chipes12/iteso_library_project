@@ -26,15 +26,13 @@ class _CalendarioState extends State<Calendario> {
   CalendarFormat _format = CalendarFormat.month;
 
   List<dynamic> _getMaterialsfromDay(DateTime date) {
-    print(_selectedDay);
-    return selectedMaterial[DateFormat('yyyy-MM-dd').format(date)] ?? [];
+    // print(context.read<RentProvider>().getRentsList[DateFsormat('yyyy-MM-dd').format(date)]?.length);
+    return context.read<RentProvider>().getRentsList[DateFormat('yyyy-MM-dd').format(date)] ?? [];
   }
 
   @override
   Widget build(BuildContext context) {
-    _getMaterialsfromDay(_selectedDay).forEach((element) {print(element);});
     context.read<RentProvider>().getRents();
-    selectedMaterial = context.read<RentProvider>().getRentsList;
     return Scaffold(
       appBar: AppBar(
           title: Text(
@@ -119,21 +117,23 @@ class _CalendarioState extends State<Calendario> {
                 SizedBox(
                   height: 20,
                 ),
-                // Container(
-                //     height: 200,
-                //     child: ListView(
-                //       children: [
-                //         ..._getMaterialsfromDay(_selectedDay).map(
-                //           (dynamic m) => Card(
-                //             child: ListTile(
-                //               leading:
-                //                   Icon(m["isabook"] ? Icons.book : Icons.movie),
-                //               title: Text(m["title"]),
-                //             ),
-                //           ),
-                //         )
-                //       ],
-                //     )),
+                Text(_getMaterialsfromDay(_selectedDay).length.toString()),
+                Text(context.read<RentProvider>().getRentsList.length.toString()),
+                Container(
+                    height: 200,
+                    child: ListView(
+                      children: [
+                        ..._getMaterialsfromDay(_selectedDay).map(
+                          (dynamic m) => Card(
+                            child: ListTile(
+                              leading:
+                                  Icon(m.containsKey("pages") ? Icons.book : Icons.movie),
+                              title: Text(m["title"]),
+                            ),
+                          ),
+                        )
+                      ],
+                    )),
               ],
             ),
           ],
