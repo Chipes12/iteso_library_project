@@ -47,9 +47,10 @@ class _HistorialState extends State<Historial> {
                       itemBuilder: (BuildContext context, int index) {
                         var _item = mes[index];
                         return Card(
+                          color: index % 2 == 0 ? Colors.blue : Colors.blueAccent,
                           child: ListTile(
-                            title: Text(_item["title"]),
-                            trailing: Icon(_item.containsKey("pages") ? Icons.book : Icons.movie),
+                            title: Text(_item["title"], style: TextStyle(color: Colors.white),),
+                            trailing: Icon(_item.containsKey("pages") ? Icons.book : Icons.movie, color: Colors.yellowAccent,),
                           ),
                         );
                       })
@@ -74,9 +75,10 @@ class _HistorialState extends State<Historial> {
                       itemBuilder: (BuildContext context, int index) {
                         var _item = mesPasado[index];
                         return Card(
+                          color: index % 2 == 0 ? Colors.blue : Colors.blueAccent,
                           child: ListTile(
-                            title: Text(_item["title"]),
-                            trailing: Icon(_item.containsKey("pages") ? Icons.book : Icons.movie),
+                            title: Text(_item["title"], style: TextStyle(color: Colors.white),),
+                            trailing: Icon(_item.containsKey("pages") ? Icons.book : Icons.movie,  color: Colors.yellowAccent,),
                           ),
                         );
                       })
@@ -101,9 +103,10 @@ class _HistorialState extends State<Historial> {
                       itemBuilder: (BuildContext context, int index) {
                         var _item = year[index];
                         return Card(
+                          color: index % 2 == 0 ? Colors.blue : Colors.blueAccent,
                           child: ListTile(
-                            title: Text(_item["title"]),
-                            trailing: Icon(_item.containsKey("pages") ? Icons.book : Icons.movie),
+                            title: Text(_item["title"], style: TextStyle(color: Colors.white),),
+                            trailing: Icon(_item.containsKey("pages") ? Icons.book : Icons.movie,  color: Colors.yellowAccent,),
                           ),
                         );
                       })
@@ -128,9 +131,10 @@ class _HistorialState extends State<Historial> {
                       itemBuilder: (BuildContext context, int index) {
                         var _item = otros[index];
                         return Card(
+                          color: index % 2 == 0 ? Colors.blue : Colors.blueAccent,
                           child: ListTile(
-                            title: Text(_item["title"]),
-                            trailing: Icon(_item.containsKey("pages") ? Icons.book : Icons.movie),
+                            title: Text(_item["title"], style: TextStyle(color: Colors.white),),
+                            trailing: Icon(_item.containsKey("pages") ? Icons.book : Icons.movie,  color: Colors.yellowAccent,),
                           ),
                         );
                       })
