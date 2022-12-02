@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iteso_library_project/items/material_item.dart';
+//import 'package:iteso_library_project/items/material_item.dart';
+//import 'package:iteso_library_project/pages/Material/check_book.dart';
+//import 'package:iteso_library_project/pages/Material/check_movie.dart';
 import 'package:iteso_library_project/pages/Search/bloc/data_fire_b_bloc.dart';
 import 'package:iteso_library_project/pages/Search/search_page.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -15,6 +17,7 @@ class QRScanner extends StatefulWidget {
 }
 
 class _QRScannerState extends State<QRScanner> {
+  //dynamic toSearch;
   QRViewController? controller;
   Barcode? result;
 
@@ -85,6 +88,8 @@ class _QRScannerState extends State<QRScanner> {
                   onPressed: () {
                     BlocProvider.of<DataFireBBloc>(context)
                         .add(SearchEvent(strToSearch: result!.code));
+                    //toSearch = context.watch<DataFireBBloc>().results;
+
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: ((context) => SearchPage())));
                   },

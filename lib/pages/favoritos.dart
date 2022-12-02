@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iteso_library_project/providers/favorites_provider.dart';
 import 'package:provider/provider.dart';
@@ -60,8 +62,7 @@ class _FavoritosState extends State<Favoritos> {
                             trailing: Icon(Icons.movie, color: Colors.yellowAccent,),
                           ),
                         );
-                      })
-                  ),
+                      })),
               SizedBox(
                 height: 25,
               ),
@@ -76,7 +77,7 @@ class _FavoritosState extends State<Favoritos> {
                 height: 15,
               ),
               Container(
-                height: 200,
+                  height: 200,
                   child: ListView.builder(
                       itemCount: peliculas.length,
                       itemBuilder: (BuildContext context, int index) {
@@ -88,8 +89,7 @@ class _FavoritosState extends State<Favoritos> {
                             trailing: Icon(Icons.movie, color: Colors.yellowAccent,),
                           ),
                         );
-                      })
-              )
+                      }))
             ],
           ),
         ),
