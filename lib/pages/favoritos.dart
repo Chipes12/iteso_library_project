@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:iteso_library_project/providers/favorites_provider.dart';
+import 'package:provider/provider.dart';
 
-class Favoritos extends StatelessWidget {
+class Favoritos extends StatefulWidget {
   const Favoritos({super.key});
 
   @override
+  State<Favoritos> createState() => _FavoritosState();
+}
+
+class _FavoritosState extends State<Favoritos> {
+  @override
   Widget build(BuildContext context) {
+    context.read<FavProvider>().myFavs();
+    List<dynamic> libros = context.read<FavProvider>().getBooksList;
+    List<dynamic> peliculas = context.read<FavProvider>().getMoviesList;
     return Scaffold(
       appBar: AppBar(
         title: Text("Favoritos"),
@@ -37,36 +47,19 @@ class Favoritos extends StatelessWidget {
                 height: 15,
               ),
               Container(
-                height: 230,
-                child: ListView(
-                  children: [
-                    Card(
-                      child: ListTile(
-                        title: Text("El señor de los anillos"),
-                        trailing: Icon(Icons.book),
-                      ),
-                    ),
-                    Card(
-                      child: ListTile(
-                        title: Text("Microcontrolador 8051"),
-                        trailing: Icon(Icons.book),
-                      ),
-                    ),
-                    Card(
-                      child: ListTile(
-                        title: Text("El Alquimistta"),
-                        trailing: Icon(Icons.book),
-                      ),
-                    ),
-                    Card(
-                      child: ListTile(
-                        title: Text("1000 leguas de viaje submarino"),
-                        trailing: Icon(Icons.book),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+                  height: 230,
+                  child: ListView.builder(
+                      itemCount: libros.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        var _favoriteItem = libros[index];
+                        return Card(
+                          child: ListTile(
+                            title: Text(_favoriteItem["title"]),
+                            trailing: Icon(Icons.book),
+                          ),
+                        );
+                      })
+                  ),
               SizedBox(
                 height: 25,
               ),
@@ -82,34 +75,17 @@ class Favoritos extends StatelessWidget {
               ),
               Container(
                 height: 200,
-                child: ListView(
-                  children: [
-                    Card(
-                      child: ListTile(
-                        title: Text("El señor de los anillos"),
-                        trailing: Icon(Icons.movie),
-                      ),
-                    ),
-                    Card(
-                      child: ListTile(
-                        title: Text("Eyes wide shut"),
-                        trailing: Icon(Icons.movie),
-                      ),
-                    ),
-                    Card(
-                      child: ListTile(
-                        title: Text("El gran hotel budapest"),
-                        trailing: Icon(Icons.movie),
-                      ),
-                    ),
-                    Card(
-                      child: ListTile(
-                        title: Text("Prisioneros"),
-                        trailing: Icon(Icons.movie),
-                      ),
-                    ),
-                  ],
-                ),
+                  child: ListView.builder(
+                      itemCount: peliculas.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        var _favoriteItem = peliculas[index];
+                        return Card(
+                          child: ListTile(
+                            title: Text(_favoriteItem["title"]),
+                            trailing: Icon(Icons.movie),
+                          ),
+                        );
+                      })
               )
             ],
           ),
