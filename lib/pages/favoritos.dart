@@ -16,6 +16,7 @@ class _FavoritosState extends State<Favoritos> {
     List<dynamic> libros = context.read<FavProvider>().getBooksList;
     List<dynamic> peliculas = context.read<FavProvider>().getMoviesList;
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
         title: Text("Favoritos"),
       ),
@@ -53,9 +54,10 @@ class _FavoritosState extends State<Favoritos> {
                       itemBuilder: (BuildContext context, int index) {
                         var _favoriteItem = libros[index];
                         return Card(
+                          color: index % 2 == 0 ? Colors.blue : Colors.blueAccent,
                           child: ListTile(
-                            title: Text(_favoriteItem["title"]),
-                            trailing: Icon(Icons.book),
+                            title: Text(_favoriteItem["title"], style: TextStyle(color: Colors.white),),
+                            trailing: Icon(Icons.movie, color: Colors.yellowAccent,),
                           ),
                         );
                       })
@@ -80,9 +82,10 @@ class _FavoritosState extends State<Favoritos> {
                       itemBuilder: (BuildContext context, int index) {
                         var _favoriteItem = peliculas[index];
                         return Card(
+                          color: index % 2 == 0 ? Colors.blue : Colors.blueAccent,
                           child: ListTile(
-                            title: Text(_favoriteItem["title"]),
-                            trailing: Icon(Icons.movie),
+                            title: Text(_favoriteItem["title"], style: TextStyle(color: Colors.white),),
+                            trailing: Icon(Icons.movie, color: Colors.yellowAccent,),
                           ),
                         );
                       })

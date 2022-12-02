@@ -34,6 +34,7 @@ class _CalendarioState extends State<Calendario> {
   Widget build(BuildContext context) {
     context.read<RentProvider>().getRents();
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
           title: Text(
         "Calendario",

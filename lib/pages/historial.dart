@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:iteso_library_project/providers/record_provider.dart';
+import 'package:provider/provider.dart';
 
-class Historial extends StatelessWidget {
+class Historial extends StatefulWidget {
   const Historial({super.key});
 
   @override
+  State<Historial> createState() => _HistorialState();
+}
+
+class _HistorialState extends State<Historial> {
+  @override
   Widget build(BuildContext context) {
+    context.read<RecordProvider>().loadRecord();
+    List<dynamic> mes = context.read<RecordProvider>().getThisMonthList;
+    List<dynamic> mesPasado = context.read<RecordProvider>().getLastMonthList;
+    List<dynamic> year = context.read<RecordProvider>().getThisYearList;
+    List<dynamic> otros = context.read<RecordProvider>().getOthers;
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
         title: Text("Historial"),
       ),
@@ -14,15 +27,6 @@ class Historial extends StatelessWidget {
           padding: EdgeInsets.all(10),
           child: Column(
             children: [
-              TextField(
-                onChanged: (value) {},
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    hintText: "Buscar",
-                    suffixIcon:
-                        IconButton(onPressed: () {}, icon: Icon(Icons.search))),
-              ),
               SizedBox(
                 height: 25,
               ),
@@ -36,36 +40,20 @@ class Historial extends StatelessWidget {
               SizedBox(
                 height: 15,
               ),
+              Text("${mesPasado.length}"),
               Container(
                 height: 230,
-                child: ListView(
-                  children: [
-                    Card(
-                      child: ListTile(
-                        title: Text("V for Vendetta"),
-                        trailing: Icon(Icons.movie),
-                      ),
-                    ),
-                    Card(
-                      child: ListTile(
-                        title: Text("Erase una vez en Hollywood"),
-                        trailing: Icon(Icons.movie),
-                      ),
-                    ),
-                    Card(
-                      child: ListTile(
-                        title: Text("Método TED para hablar en público"),
-                        trailing: Icon(Icons.book),
-                      ),
-                    ),
-                    Card(
-                      child: ListTile(
-                        title: Text("1000 leguas de viaje submarino"),
-                        trailing: Icon(Icons.book),
-                      ),
-                    ),
-                  ],
-                ),
+                  child: ListView.builder(
+                      itemCount: mes.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        var _item = mes[index];
+                        return Card(
+                          child: ListTile(
+                            title: Text(_item["title"]),
+                            trailing: Icon(_item.containsKey("pages") ? Icons.book : Icons.movie),
+                          ),
+                        );
+                      })
               ),
               SizedBox(
                 height: 25,
@@ -82,34 +70,17 @@ class Historial extends StatelessWidget {
               ),
               Container(
                 height: 200,
-                child: ListView(
-                  children: [
-                    Card(
-                      child: ListTile(
-                        title: Text("El señor de los anillos"),
-                        trailing: Icon(Icons.book),
-                      ),
-                    ),
-                    Card(
-                      child: ListTile(
-                        title: Text("Eyes wide shut"),
-                        trailing: Icon(Icons.movie),
-                      ),
-                    ),
-                    Card(
-                      child: ListTile(
-                        title: Text("Cien años de soledad"),
-                        trailing: Icon(Icons.book),
-                      ),
-                    ),
-                    Card(
-                      child: ListTile(
-                        title: Text("El Psicoanalista"),
-                        trailing: Icon(Icons.book),
-                      ),
-                    ),
-                  ],
-                ),
+                  child: ListView.builder(
+                      itemCount: mesPasado.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        var _item = mesPasado[index];
+                        return Card(
+                          child: ListTile(
+                            title: Text(_item["title"]),
+                            trailing: Icon(_item.containsKey("pages") ? Icons.book : Icons.movie),
+                          ),
+                        );
+                      })
               )
             ],
           ),
